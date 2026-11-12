@@ -1,0 +1,439 @@
+/* Astryx owns component styling and tokens. This file adds page-level layout and the
+   "Lemon granite morning" palette: lemon yellow, gunmetal grey and cool blue-grey. */
+
+:root,
+[data-astryx-theme] {
+  --lemon: #ffd21f;
+  --gunmetal: #1f2933;
+  --granite: #eef0f2;
+
+  --color-accent: light-dark(#111418, #eef0f2);
+  --color-accent-muted: light-dark(#11141826, #eef0f240);
+  --color-on-accent: light-dark(#ffffff, #111418);
+  --color-text-accent: light-dark(#34506b, #eef0f2);
+  --color-text-info: light-dark(#34506b, #9bb7d1);
+  --color-text-primary: light-dark(#1f2933, #eef0f2);
+  --color-text-secondary: light-dark(#566573, #a9b4be);
+  --color-background-body: light-dark(#eef0f2, #1b2127);
+  --color-background-surface: light-dark(#ffffff, #232b33);
+  --color-background-card: light-dark(#ffffff, #2a333c);
+  --color-background-muted: light-dark(#e3e7ea, #2a333c);
+  --color-background-popover: light-dark(#ffffff, #2a333c);
+  --color-border: light-dark(#d7dce0, #3b4650);
+  --color-border-emphasized: light-dark(#b4bcc4, #5a6672);
+  --color-icon-accent: light-dark(#34506b, #ffd21f);
+  --color-info: light-dark(#34506b, #9bb7d1);
+}
+
+/* The base theme tints links and secondary/ghost buttons with its blue accent. */
+.astryx-link,
+.astryx-button[data-variant='secondary'],
+.astryx-button[data-variant='ghost'] {
+  --color-text-primary: light-dark(#34506b, #ffd21f);
+  --color-text-accent: light-dark(#34506b, #ffd21f);
+}
+
+.astryx-button[data-variant='secondary'],
+.astryx-button[data-variant='ghost'] {
+  color: light-dark(#34506b, #ffd21f);
+}
+
+/* Neutral / info / warning badges (Free plan, Not submitted, Paused, Unpaid...) are black. */
+.astryx-badge[data-variant='neutral'],
+.astryx-badge[data-variant='info'],
+.astryx-badge[data-variant='warning'] {
+  background-color: light-dark(#111418, #eef0f2);
+  color: light-dark(#ffffff, #111418);
+}
+
+.astryx-button[data-variant='secondary'] {
+  border-color: light-dark(#34506b, #ffd21f);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1280px;
+  margin-inline: auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 16px;
+    gap: 20px;
+  }
+}
+
+.center-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 16px;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+
+@media (max-width: 640px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.toolbar > .grow {
+  flex: 1 1 240px;
+  min-width: 200px;
+}
+
+.table-wrap {
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.product-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--color-background-muted, #eee);
+  flex: none;
+}
+
+.preview-img {
+  max-width: 160px;
+  max-height: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.frame {
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Long dialogs scroll inside, below the header; the action bar stays visible. */
+.dialog-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(92dvh - 88px);
+}
+
+.dialog-actions {
+  position: sticky;
+  bottom: -16px;
+  padding-block: 12px;
+  margin-bottom: -16px;
+  background: var(--color-background-popover, #fff);
+  border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+}
+
+.pdf-frame {
+  flex: 1;
+  width: 100%;
+  height: calc(100dvh - 140px);
+  border: 0;
+  background: #fff;
+}
+
+@media (max-width: 640px) {
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+  .toolbar > * {
+    flex: 1 1 100%;
+  }
+}
+
+.bell-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.bell-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  font-weight: 700;
+  color: #fff;
+  background: #d64a2d;
+  pointer-events: none;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 50dvh;
+  overflow-y: auto;
+}
+
+.search-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.search-item[aria-selected='true'] {
+  background: var(--color-background-muted, #e3e7ea);
+}
+
+.search-label {
+  font-weight: 600;
+}
+
+.search-hint {
+  color: var(--color-text-secondary, #566573);
+  font-size: 0.85em;
+  text-align: end;
+}
+
+.date-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #566573);
+}
+
+.date-field input {
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border-emphasized, #b4bcc4);
+  border-radius: 8px;
+  background: var(--color-background-surface, #fff);
+  color: var(--color-text-primary, #1f2933);
+  font: inherit;
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+}
+
+.chart-bar {
+  fill: var(--color-accent, #111418);
+}
+
+.chart-axis {
+  stroke: var(--color-border-emphasized, #b4bcc4);
+  stroke-width: 1;
+}
+
+.chart-label {
+  fill: var(--color-text-secondary, #566573);
+  font-size: 11px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.bulk-bar {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border-emphasized, #b4bcc4);
+  border-radius: 12px;
+  background: var(--color-background-muted, #e3e7ea);
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  word-break: break-all;
+}
+
+.qr-img {
+  width: 200px;
+  height: 200px;
+  image-rendering: pixelated;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+}
+
+/* ---------- Auth screens ---------- */
+
+.auth-layout {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.auth-hero {
+  background: linear-gradient(
+    160deg,
+    light-dark(#f6f7f8, #232b33) 0%,
+    light-dark(#e6e9ec, #1b2127) 55%,
+    light-dark(#cfd8e0, #14181d) 100%
+  );
+  color: light-dark(#1f2933, #eef0f2);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.auth-hero,
+.auth-hero h2,
+.auth-hero p,
+.auth-hero li {
+  color: light-dark(#1f2933, #eef0f2);
+}
+
+.auth-panel {
+  position: relative;
+}
+
+.auth-theme-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.auth-hero h2 {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 1.1;
+  margin: 0 0 16px;
+  font-weight: 650;
+}
+
+.auth-hero p {
+  margin: 0;
+  max-width: 46ch;
+  opacity: 0.88;
+  line-height: 1.5;
+}
+
+.auth-hero ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.auth-hero li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.auth-hero .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34506b;
+  flex: none;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  border: 1px solid light-dark(rgba(31, 41, 51, 0.25), rgba(238, 240, 242, 0.3));
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+}
+
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+}
+
+@media (max-width: 900px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+  .auth-hero {
+    padding: 28px 20px;
+  }
+  .auth-hero ul,
+  .auth-hero .chips {
+    display: none;
+  }
+}
