@@ -18,6 +18,8 @@ import StatCard from '../components/StatCard.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
 import Notice from '../components/Notice.jsx';
 import QrCard from '../components/QrCard.jsx';
+import MobileCardList from '../components/MobileCardList.jsx';
+import OrderDialog from '../components/OrderDialog.jsx';
 import {useAuth} from '../context/AuthContext.jsx';
 import RevenueChart from '../components/RevenueChart.jsx';
 import {useAlerts} from '../context/AlertsContext.jsx';
@@ -44,6 +46,12 @@ export default function Dashboard() {
   const {products} = useAlerts();
   const productCount = products.length;
   const [notice, setNotice] = useState(null);
+  const [selected, setSelected] = useState(null);
+
+  function handleStatusChanged(number, status) {
+    setInvoices((list) => list.map((o) => (o.number === number ? {...o, status} : o)));
+    setSelected((s) => (s && s.number === number ? {...s, status} : s));
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -165,7 +173,20 @@ export default function Dashboard() {
                 {loading ? 'Loading orders…' : 'No orders in this period yet. Share your store link to get your first one.'}
               </Text>
             ) : (
-              <div className="table-scroll">
+              <>
+              <MobileCardList
+                label="Recent orders"
+                items={recent.map((o) => ({
+                  key: o.number,
+                  title: `#${o.number}`,
+                  subtitle: formatDate(o.date),
+                  value: formatRand(o.total),
+                  badge: <StatusBadge status={o.status} />,
+                  actionLabel: `View order ${o.number}`,
+                  onClick: () => setSelected(o),
+                }))}
+              />
+              <div className="table-scroll desktop-only">
               <Table density="compact" idKey="number" dividers="rows">
                 <TableHeader>
                   <TableRow>
@@ -189,6 +210,7 @@ export default function Dashboard() {
                 </TableBody>
               </Table>
               </div>
+              </>
             )}
           </VStack>
         </Card>
@@ -262,6 +284,10 @@ export default function Dashboard() {
           )}
         </VStack>
       </Card>
+
+      {selected ? (
+        <OrderDialog order={selected} onClose={() => setSelected(null)} onStatusChanged={handleStatusChanged} />
+      ) : null}
     </>
   );
 }

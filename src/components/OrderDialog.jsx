@@ -102,6 +102,24 @@ export default function OrderDialog({order, onClose, onStatusChanged}) {
         ) : (
           <>
             {items.length > 0 ? (
+              <>
+              <ul className="mobile-only item-list" aria-label="Order items">
+                {items.map((p, i) => (
+                  <li key={`${p.name}-${i}`}>
+                    <HStack hAlign="between" gap={3} vAlign="start">
+                      <VStack gap={0}>
+                        <Text weight="medium">{p.name}</Text>
+                        {p.extras ? <Text type="supporting">{p.extras}</Text> : null}
+                        <Text type="supporting">
+                          {p.order_quantity} × {formatRand(p.price)}
+                        </Text>
+                      </VStack>
+                      <Text weight="medium">{formatRand(p.total)}</Text>
+                    </HStack>
+                  </li>
+                ))}
+              </ul>
+              <div className="desktop-only">
               <Table density="compact" dividers="rows">
                 <TableHeader>
                   <TableRow>
@@ -127,6 +145,8 @@ export default function OrderDialog({order, onClose, onStatusChanged}) {
                   ))}
                 </TableBody>
               </Table>
+              </div>
+              </>
             ) : (
               <Text type="supporting">No line items were returned for this order.</Text>
             )}

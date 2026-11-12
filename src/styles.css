@@ -113,34 +113,123 @@ body {
 .table-wrap {
   border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
   border-radius: 12px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 }
 
-/* Keep columns readable on phones: the table scrolls sideways instead of squashing. */
+/* ---------- Tables become cards on phones ---------- */
+
+.mobile-cards,
+.mobile-only {
+  display: none;
+}
+
 @media (max-width: 640px) {
-  .table-wrap table,
-  .table-wrap [role='table'] {
-    min-width: 640px;
+  .desktop-only {
+    display: none !important;
   }
-  .table-wrap td,
-  .table-wrap th,
-  .table-wrap [role='cell'],
-  .table-wrap [role='columnheader'] {
-    white-space: nowrap;
+  .mobile-only {
+    display: block;
   }
-  .table-scroll {
-    overflow-x: auto;
+  .mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-  .table-scroll table,
-  .table-scroll [role='table'] {
-    min-width: 420px;
-  }
-  .table-scroll td,
-  .table-scroll th {
-    white-space: nowrap;
-  }
+}
+
+.mobile-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+  border-radius: 12px;
+  background: var(--color-background-card, #fff);
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.mobile-card:active {
+  background: var(--color-background-muted, #e3e7ea);
+}
+
+.mobile-card:focus-visible {
+  outline: 2px solid var(--color-accent, #111418);
+  outline-offset: 2px;
+}
+
+.mobile-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-card-title {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-card-sub {
+  color: var(--color-text-secondary, #566573);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.mobile-card-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex: none;
+}
+
+.mobile-card-value {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mobile-card-item:has(.mobile-card-actions) .mobile-card {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.mobile-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px 4px 14px;
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  background: var(--color-background-card, #fff);
+}
+
+.mobile-card-chevron {
+  flex: none;
+  color: var(--color-text-secondary, #566573);
+}
+
+.item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
 }
 
 .clickable-row {
