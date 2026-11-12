@@ -20,6 +20,7 @@ import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import Notice from '../components/Notice.jsx';
 import Loading from '../components/Loading.jsx';
 import StatCard from '../components/StatCard.jsx';
+import MobileCardList from '../components/MobileCardList.jsx';
 import {useAuth} from '../context/AuthContext.jsx';
 import {productApi} from '../api/services.js';
 import {formatCents, formatNumber} from '../utils/format.js';
@@ -318,7 +319,43 @@ export default function Products() {
           actions={products.length === 0 ? <Button label="Add product" variant="primary" onClick={() => setEditing({})} /> : null}
         />
       ) : (
-        <div className="table-wrap">
+        <>
+        <MobileCardList
+          label="Products"
+          items={filtered.map((p) => {
+            const stock = Number(p.available_stock);
+            return {
+              key: p.id,
+              title: p.name,
+              subtitle: [p.category, stock <= 0 ? 'Out of stock' : `${stock} in stock`].filter(Boolean).join(' · '),
+              media: <Avatar src={p.image || undefined} name={p.name} shape="rounded" size="lg" tooltip={false} />,
+              value: formatCents(p.price),
+              badge: <Badge variant={p.is_paused ? 'neutral' : 'success'} label={p.is_paused ? 'Paused' : 'Live'} />,
+              actionLabel: `Edit ${p.name}`,
+              onClick: () => setEditing(p),
+              actions: (
+                <>
+                  <CheckboxInput
+                    label="Select"
+                    value={selected.has(p.id)}
+                    onChange={(on) => toggleOne(p.id, Boolean(on))}
+                  />
+                  <HStack gap={1}>
+                    <Button
+                      label={p.is_paused ? 'Resume' : 'Pause'}
+                      size="sm"
+                      variant="ghost"
+                      icon={p.is_paused ? <Play size={14} /> : <Pause size={14} />}
+                      onClick={() => togglePause(p)}
+                    />
+                    <Button label="Delete" size="sm" variant="ghost" icon={<Trash2 size={14} />} onClick={() => setDeleting(p)} />
+                  </HStack>
+                </>
+              ),
+            };
+          })}
+        />
+        <div className="table-wrap desktop-only">
           <Table hasHover idKey="id">
             <TableHeader>
               <TableRow>
@@ -390,6 +427,7 @@ export default function Products() {
             </TableBody>
           </Table>
         </div>
+        </>
       )}
 
       {editing ? (

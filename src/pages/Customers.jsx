@@ -17,6 +17,7 @@ import {useNavigate} from 'react-router-dom';
 import PageHeader from '../components/PageHeader.jsx';
 import StatCard from '../components/StatCard.jsx';
 import CustomerDialog from '../components/CustomerDialog.jsx';
+import MobileCardList from '../components/MobileCardList.jsx';
 import Notice from '../components/Notice.jsx';
 import Loading from '../components/Loading.jsx';
 import {useAuth} from '../context/AuthContext.jsx';
@@ -141,7 +142,24 @@ export default function Customers() {
           }
         />
       ) : (
-        <div className="table-wrap">
+        <>
+        <MobileCardList
+          label="Customers"
+          items={filtered.map((c) => ({
+            key: c.phone_number,
+            title: displayName(c),
+            subtitle:
+              tier < 1
+                ? c.phone_number
+                : [c.phone_number, `${formatNumber(c.order_count)} orders`, c.last_purchase_date ? `Last ${formatDate(c.last_purchase_date)}` : null]
+                    .filter(Boolean)
+                    .join(' · '),
+            value: tier < 1 ? null : formatRand(c.total_spent),
+            actionLabel: `Open ${displayName(c)}`,
+            onClick: () => setSelected(c),
+          }))}
+        />
+        <div className="table-wrap desktop-only">
           <Table hasHover idKey="phone_number">
             <TableHeader>
               <TableRow>
@@ -173,6 +191,7 @@ export default function Customers() {
             </TableBody>
           </Table>
         </div>
+        </>
       )}
 
       {selected ? (

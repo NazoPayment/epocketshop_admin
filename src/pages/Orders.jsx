@@ -13,6 +13,7 @@ import PageHeader from '../components/PageHeader.jsx';
 import StatCard from '../components/StatCard.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
 import OrderDialog from '../components/OrderDialog.jsx';
+import MobileCardList from '../components/MobileCardList.jsx';
 import Notice from '../components/Notice.jsx';
 import Loading from '../components/Loading.jsx';
 import {useAuth} from '../context/AuthContext.jsx';
@@ -172,7 +173,20 @@ export default function Orders() {
           }
         />
       ) : (
-        <div className="table-wrap">
+        <>
+        <MobileCardList
+          label="Orders"
+          items={filtered.map((o) => ({
+            key: o.number,
+            title: `#${o.number}`,
+            subtitle: [formatDate(o.date), o.phone].filter(Boolean).join(' · '),
+            value: formatRand(o.total),
+            badge: <StatusBadge status={o.status} />,
+            actionLabel: `View order ${o.number}`,
+            onClick: () => setSelected(o),
+          }))}
+        />
+        <div className="table-wrap desktop-only">
           <Table hasHover density="balanced" idKey="number">
             <TableHeader>
               <TableRow>
@@ -206,6 +220,7 @@ export default function Orders() {
             </TableBody>
           </Table>
         </div>
+        </>
       )}
 
       {selected ? (
