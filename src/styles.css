@@ -113,7 +113,34 @@ body {
 .table-wrap {
   border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
   border-radius: 12px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Keep columns readable on phones: the table scrolls sideways instead of squashing. */
+@media (max-width: 640px) {
+  .table-wrap table,
+  .table-wrap [role='table'] {
+    min-width: 640px;
+  }
+  .table-wrap td,
+  .table-wrap th,
+  .table-wrap [role='cell'],
+  .table-wrap [role='columnheader'] {
+    white-space: nowrap;
+  }
+  .table-scroll {
+    overflow-x: auto;
+  }
+  .table-scroll table,
+  .table-scroll [role='table'] {
+    min-width: 420px;
+  }
+  .table-scroll td,
+  .table-scroll th {
+    white-space: nowrap;
+  }
 }
 
 .clickable-row {
@@ -193,6 +220,11 @@ body {
   .toolbar > * {
     flex: 1 1 100%;
   }
+  /* From / To sit side by side instead of each taking a full row. */
+  .toolbar > .date-field {
+    flex: 1 1 calc(50% - 6px);
+    min-width: 0;
+  }
 }
 
 .bell-wrap {
@@ -264,6 +296,9 @@ body {
 }
 
 .date-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
   height: 40px;
   padding: 0 10px;
   border: 1px solid var(--color-border-emphasized, #b4bcc4);
