@@ -27,8 +27,6 @@ export default function Orders() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get('q') || '');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState(null);
@@ -61,14 +59,7 @@ export default function Orders() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const from = dateFrom ? new Date(`${dateFrom}T00:00:00`).getTime() : null;
-    const to = dateTo ? new Date(`${dateTo}T23:59:59.999`).getTime() : null;
     return orders
-      .filter((o) => {
-        if (from === null && to === null) return true;
-        const t = new Date(o.date).getTime();
-        return !Number.isNaN(t) && (from === null || t >= from) && (to === null || t <= to);
-      })
       .filter((o) => statusFilter === 'all' || o.status.toLowerCase() === statusFilter.toLowerCase())
       .filter(
         (o) =>
@@ -78,7 +69,7 @@ export default function Orders() {
           o.note.toLowerCase().includes(q),
       )
       .sort((a, b) => new Date(b.date) - new Date(a.date));
-  }, [orders, statusFilter, query, dateFrom, dateTo]);
+  }, [orders, statusFilter, query]);
 
   const stats = useMemo(() => summarise(filtered), [filtered]);
 
@@ -148,17 +139,6 @@ export default function Orders() {
           options={[{value: 'all', label: 'All statuses'}, ...PAYMENT_STATUSES.map((s) => ({value: s, label: s}))]}
           width={180}
         />
-        <label className="date-field">
-          <span>From</span>
-          <input type="date" value={dateFrom} max={dateTo || undefined} onChange={(e) => setDateFrom(e.target.value)} />
-        </label>
-        <label className="date-field">
-          <span>To</span>
-          <input type="date" value={dateTo} min={dateFrom || undefined} onChange={(e) => setDateTo(e.target.value)} />
-        </label>
-        {dateFrom || dateTo ? (
-          <Button label="Clear dates" variant="ghost" size="sm" onClick={() => { setDateFrom(''); setDateTo(''); }} />
-        ) : null}
       </div>
 
       {loading ? (

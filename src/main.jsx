@@ -11,6 +11,8 @@ import App from './App.jsx';
 import {AuthProvider} from './context/AuthContext.jsx';
 import {ThemeModeProvider} from './context/ThemeModeContext.jsx';
 import RouterLinkAdapter from './components/RouterLinkAdapter.jsx';
+// Imported eagerly so the one-time install prompt event is captured at startup.
+import './hooks/useInstallPrompt.js';
 
 // The service worker only runs in production builds, so it never caches dev-server files.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {

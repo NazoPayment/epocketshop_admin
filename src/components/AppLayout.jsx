@@ -26,6 +26,7 @@ import {
 import NotificationsBell from './NotificationsBell.jsx';
 import SearchDialog from './SearchDialog.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
+import InstallButton from './InstallButton.jsx';
 import {AlertsProvider} from '../context/AlertsContext.jsx';
 import {useAuth} from '../context/AuthContext.jsx';
 import {planName} from '../utils/format.js';
@@ -148,6 +149,7 @@ function Shell() {
             icon={<Search size={16} />}
             onClick={() => setSearchOpen(true)}
           />
+          <InstallButton />
           <NotificationsBell />
           <ThemeToggle />
           {ownerName ? <span className="hide-on-mobile">{ownerName}</span> : null}
