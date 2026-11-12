@@ -165,6 +165,7 @@ export default function Dashboard() {
                 {loading ? 'Loading orders…' : 'No orders in this period yet. Share your store link to get your first one.'}
               </Text>
             ) : (
+              <div className="table-scroll">
               <Table density="compact" idKey="number" dividers="rows">
                 <TableHeader>
                   <TableRow>
@@ -187,6 +188,7 @@ export default function Dashboard() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
             )}
           </VStack>
         </Card>
