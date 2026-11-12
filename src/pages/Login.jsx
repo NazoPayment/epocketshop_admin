@@ -62,7 +62,10 @@ export default function Login() {
           />
           <Button label="Sign in" variant="primary" type="submit" isLoading={busy} width="100%" />
           <HStack hAlign="between" wrap="wrap" gap={2}>
-            <Link href="/forgot-password">Forgot password?</Link>
+            <HStack gap={3} wrap="wrap">
+              <Link href="/forgot-password">Forgot password?</Link>
+              <Link href="/plans">Plans & billing</Link>
+            </HStack>
             <Text type="supporting">
               New here? <Link href="/register">Create your store</Link>
             </Text>

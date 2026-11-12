@@ -167,6 +167,9 @@ export default function Register() {
               <Text type="supporting">
                 Already have a store? <Link href="/login">Sign in</Link>
               </Text>
+              <Text type="supporting">
+                Not sure yet? <Link href="/plans">See plans & billing</Link>
+              </Text>
             </VStack>
           </form>
         )}

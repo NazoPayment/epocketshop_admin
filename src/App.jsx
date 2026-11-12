@@ -8,6 +8,7 @@ import Loading from './components/Loading.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
+import Plans from './pages/Plans.jsx';
 
 const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 const Orders = lazy(() => import('./pages/Orders.jsx'));
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/login" element={<GuestOnly><Login /></GuestOnly>} />
         <Route path="/register" element={<GuestOnly><Register /></GuestOnly>} />
         <Route path="/forgot-password" element={<GuestOnly><ForgotPassword /></GuestOnly>} />
+        <Route path="/plans" element={<Plans />} />
 
         <Route element={<RequireAuth><AppLayout /></RequireAuth>}>
           <Route index element={<Dashboard />} />
