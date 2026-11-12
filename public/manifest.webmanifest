@@ -2,6 +2,7 @@
   "name": "ePocketShop Admin",
   "short_name": "ePocket Admin",
   "description": "Manage your store, orders, products and customers.",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

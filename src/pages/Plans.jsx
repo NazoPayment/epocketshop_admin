@@ -8,6 +8,7 @@ import {VStack} from '@astryxdesign/core/VStack';
 
 import PlanCards from '../components/PlanCards.jsx';
 import ThemeToggle from '../components/ThemeToggle.jsx';
+import InstallButton from '../components/InstallButton.jsx';
 
 /** Public pricing page, reachable before signing in or creating an account. */
 export default function Plans() {
@@ -23,6 +24,7 @@ export default function Plans() {
           </HStack>
           <HStack gap={3} vAlign="center">
             <Link href="/login">Sign in</Link>
+            <InstallButton />
             <ThemeToggle />
           </HStack>
         </HStack>

@@ -3,6 +3,7 @@ import {Text} from '@astryxdesign/core/Text';
 import {VStack} from '@astryxdesign/core/VStack';
 
 import ThemeToggle from './ThemeToggle.jsx';
+import InstallButton from './InstallButton.jsx';
 
 const CHANNELS = ['Storefront', 'WhatsApp', 'Instagram', 'Point of sale'];
 const POINTS = [
@@ -44,6 +45,7 @@ export default function AuthLayout({title, subtitle, children}) {
       </aside>
       <main className="auth-panel">
         <div className="auth-theme-toggle">
+          <InstallButton />
           <ThemeToggle />
         </div>
         <div className="auth-card">
