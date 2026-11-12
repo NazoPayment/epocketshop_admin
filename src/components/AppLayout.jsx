@@ -134,10 +134,12 @@ function Shell() {
       }
       endContent={
         <HStack gap={2} vAlign="center">
-          <Badge
-            variant={business?.subscription ? 'success' : 'neutral'}
-            label={`${planName(business?.subscription)} plan`}
-          />
+          <span className="hide-on-mobile">
+            <Badge
+              variant={business?.subscription ? 'success' : 'neutral'}
+              label={`${planName(business?.subscription)} plan`}
+            />
+          </span>
           <IconButton
             label="Search (Ctrl+K)"
             tooltip="Search (Ctrl+K)"

@@ -14,9 +14,9 @@ export default function Plans() {
   const navigate = useNavigate();
 
   return (
-    <main style={{maxWidth: 960, margin: '0 auto', padding: '24px 16px 48px'}}>
+    <main className="public-page">
       <VStack gap={6}>
-        <HStack hAlign="between" vAlign="center">
+        <HStack hAlign="between" vAlign="center" wrap="wrap" gap={3}>
           <HStack gap={2} vAlign="center">
             <img src="/favicon.svg" alt="" width={32} height={32} />
             <Text>ePocketShop</Text>
