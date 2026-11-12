@@ -149,7 +149,7 @@ function Shell() {
             icon={<Search size={16} />}
             onClick={() => setSearchOpen(true)}
           />
-          <InstallButton />
+          <InstallButton compact />
           <NotificationsBell />
           <ThemeToggle />
           {ownerName ? <span className="hide-on-mobile">{ownerName}</span> : null}
