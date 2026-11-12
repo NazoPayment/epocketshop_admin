@@ -281,7 +281,9 @@ function AccountTab() {
               <Button label="Install app" variant="primary" onClick={install} />
             </div>
           ) : isIos ? (
-            <Text>On iPhone or iPad, tap the Share button in Safari, then choose Add to Home Screen.</Text>
+            <Text>
+              On iPhone or iPad, tap the Share button (in Safari, Chrome or Edge), then choose Add to Home Screen.
+            </Text>
           ) : (
             <Text type="supporting">
               Use your browser's menu (Install app or Add to Home Screen) to add this to your device. This option appears once the site is served over HTTPS.
